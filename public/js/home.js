@@ -6,7 +6,20 @@ function scrapeArticle() {
 
     $.get("/api/scrape", function (data) {
         console.log(data);
-        $("#alertScraped").modal("show");
+        if (data.errmsg) {
+            $("#modal-text").text(0 + " Articles Scraped");
+            $("#alertScraped").modal("show");
+        } else {
+            console.log(data);
+            $("#modal-text").text(data.length);
+            $("#alertScraped").modal("show");
+
+        }
+
+        setTimeout(function () {
+            location.reload();
+        }, 2000);
+
     })
 }
 
