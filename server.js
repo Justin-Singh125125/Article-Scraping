@@ -23,7 +23,9 @@ app.set("view engine", "handlebars");
 app.use(htmlRoutes);
 app.use(apiRoutes);
 
-mongoose.connect("ds149144.mlab.com:49144/article-scrape", () => {
+var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines";
+
+mongoose.connect(MONGODB_URI, () => {
     console.log("Connected to Mongodb");
 })
 

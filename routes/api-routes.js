@@ -1,10 +1,16 @@
 var app = require('express').Router();
+var mongoose = require("mongoose");
 
 var cheerio = require("cheerio");
 var axios = require("axios");
 
+var db = require("../modals");
+
 app.get("/api/scrape", (req, res) => {
+    var scrapedArticles = [];
+    var dbArticles = [];
     scrapeArticle(req, res)
+
 })
 // var fullWordList = ['1','2','3','4','5'];
 // var wordsToRemove = ['1','2','3'];
@@ -40,8 +46,12 @@ function scrapeArticle(req, res) {
             });
         });
 
-        // After looping through each element found, log the results to the console
-        res.json(results);
+        db.Articles.create(results).then(function (data) {
+            res.json(data);
+        }).catch(function (err) {
+            res.json(err);
+        })
+
     });
 
 }
