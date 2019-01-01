@@ -76,12 +76,12 @@ function scrapeArticle(req, res) {
 
             //once we have both components filtered, we smash them together to make data work
             var filteredArticles = onlyInA.concat(onlyInB);
+            console.log(filteredArticles);
             if (filteredArticles.length === 0) {
                 res.json([]);
             } else {
-                db.Articles.create(filteredArticles).then(function (data) {
-                    console.log(data);
-                    res.json(data);
+                db.Articles.create(filteredArticles).then(function () {
+                    res.json(filteredArticles);
                 }).catch(function (err) {
                     res.json(err);
                 })
