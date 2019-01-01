@@ -46,14 +46,61 @@ function scrapeArticle(req, res) {
             });
         });
 
-        db.Articles.create(results).then(function (data) {
-            res.json(data);
-        }).catch(function (err) {
-            res.json(err);
+        //gets all from the database
+        db.Articles.find({}).then(function (data) {
+            //saves all data pulled from the database
+            dbArticles = data;
+
+            //now store all data from the scrapper
+            scrapedArticles = results;
+
+            //now we are going to filter the variables to only
+            //contain the title, summary and link
+            //so we can use the filter function
+            var rearangedArticles = [];
+            for (var i = 0; i < dbArticles.length; i++) {
+                //create an object
+                var articles = {
+                    title: dbArticles[i].title,
+                    summary: dbArticles[i].summary,
+                    link: dbArticles[i].link
+                }
+                //push object to array
+                rearangedArticles.push(articles);
+            }
+
+
+            //store filtered components from each object
+            var onlyInA = rearangedArticles.filter(comparer(scrapedArticles));
+            var onlyInB = scrapedArticles.filter(comparer(rearangedArticles));
+
+            //once we have both components filtered, we smash them together to make data work
+            var filteredArticles = onlyInA.concat(onlyInB);
+            if (filteredArticles.length === 0) {
+                res.json([]);
+            } else {
+                db.Articles.create(filteredArticles).then(function (data) {
+                    console.log(data);
+                    res.json(data);
+                }).catch(function (err) {
+                    res.json(err);
+                })
+            }
+
         })
+
+
+
 
     });
 
+    function comparer(otherArray) {
+        return function (current) {
+            return otherArray.filter(function (other) {
+                return other.title == current.title && other.summary == current.summary && other.link == current.link;
+            }).length == 0;
+        }
+    }
 }
 
 module.exports = app;
