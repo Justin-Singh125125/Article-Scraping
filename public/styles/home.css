@@ -14,6 +14,7 @@
 .jumbotron{
     text-align: center;
     background-color:#ffb04f;
+    padding: 40px;
 }
 
 html, body{
@@ -30,7 +31,7 @@ html, body{
     
 }
 .card-header{
-    background: #aaabb5;
+    background: #ffc247;
 }
 .card-body{
     border: 2px solid #ffb412;
