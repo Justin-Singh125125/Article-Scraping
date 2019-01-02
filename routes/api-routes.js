@@ -90,28 +90,26 @@ function scrapeArticle(req, res) {
             //now store all data from the scrapper
             scrapedArticles = results;
 
-            //now we are going to filter the variables to only
-            //contain the title, summary and link
-            //so we can use the filter function
-            var rearangedArticles = [];
-            for (var i = 0; i < dbArticles.length; i++) {
-                //create an object
-                var articles = {
-                    title: dbArticles[i].title,
-                    summary: dbArticles[i].summary,
-                    link: dbArticles[i].link
+            var filteredArticles = [];
+
+            //go through every article
+            for (var i = 0; i < scrapedArticles.length; i++) {
+                //assume match is not found in database
+                var isFound = false;
+                //go through every database article
+                for (var j = 0; j < dbArticles.length; j++) {
+                    //if one of the articles title matches and of the articles found in the database 
+                    if (scrapedArticles[i].title === dbArticles[j].title) {
+                        isFound = true;
+                    }
                 }
-                //push object to array
-                rearangedArticles.push(articles);
+                //if no match was found, we can push that object into the filtered articles array
+                if (!isFound) {
+                    filteredArticles.push(scrapedArticles[i]);
+                }
             }
 
 
-            //store filtered components from each object
-            var onlyInA = rearangedArticles.filter(comparer(scrapedArticles));
-            var onlyInB = scrapedArticles.filter(comparer(rearangedArticles));
-
-            //once we have both components filtered, we smash them together to make data work
-            var filteredArticles = onlyInA.concat(onlyInB);
             console.log(filteredArticles);
             if (filteredArticles.length === 0) {
                 res.json([]);
@@ -121,6 +119,7 @@ function scrapeArticle(req, res) {
                 }).catch(function (err) {
                     res.json(err);
                 })
+
             }
 
         })
