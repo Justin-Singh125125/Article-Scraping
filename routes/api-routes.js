@@ -12,12 +12,41 @@ app.get("/api/scrape", (req, res) => {
     scrapeArticle(req, res)
 
 })
-// var fullWordList = ['1','2','3','4','5'];
-// var wordsToRemove = ['1','2','3'];
+app.post("/api/create-comment", (req, res) => {
+    console.log(req.body.articleId);
+    var newNote = {
+        body: req.body.body
+    }
 
-// var filteredKeywords = fullWordList.filter((word) => !wordsToRemove.includes(word));
+    db.Comments.create(newNote).then(function (dbNote) {
 
-//console.log(filteredKeywords);
+        return db.Articles.findOneAndUpdate({
+            _id: req.body.articleId
+        }, { $push: { comments: dbNote._id } }, { new: true });
+
+    }).then(function (dbArticle) {
+        res.json(dbArticle);
+    })
+})
+
+
+
+app.get("/api/comments/:id", (req, res) => {
+    db.Articles.findById({
+        _id: req.params.id
+        // i assume making the word plural grabs all of them
+    }).populate("comments").then(function (data) {
+        res.json(data)
+    })
+})
+
+
+
+
+
+
+
+
 function scrapeArticle(req, res) {
     // Making a request via axios for `nhl.com`'s homepage
     axios.get("https://techcrunch.com/").then(function (response) {
