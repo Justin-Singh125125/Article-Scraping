@@ -9,4 +9,8 @@ app.get("/", (req, res) => {
 
 })
 
+app.get("auth/login", (req, res) => {
+    res.render("login")
+})
+
 module.exports = app;

@@ -25,14 +25,24 @@ $(".menu-toggle").on("click", function (e) {
     $.ajax("/api/comments/" + articleId, {
         type: "GET"
     }).then(function (data) {
-        console.log(data);
-        $("#comment-section").empty();
-        for (var i = 0; i < data.comments.length; i++) {
-            var comment = $("<p>").text(data.comments[i].body);
-            $("#comment-section").append(comment);
-            console.log(comment);
+        if (data === false) {
+            $("#form-user").css("display", "none");
+            $("#comment-section").empty();
+            $("#comment-section").append("<p>You need to login to see and post comments</p>");
+            $("#comment-section").append(`<a href="/auth/login"><button type="button" class="btn btn-info">Login</button></a>`);
+            $("#wrapper").toggleClass("toggled");
+
+        } else {
+            console.log(data);
+            $("#comment-section").empty();
+            for (var i = 0; i < data.comments.length; i++) {
+                var comment = $("<p>").text(data.comments[i].body);
+                $("#comment-section").append(comment);
+                console.log(comment);
+            }
+            $("#wrapper").toggleClass("toggled");
         }
-        $("#wrapper").toggleClass("toggled");
+
     })
 
 

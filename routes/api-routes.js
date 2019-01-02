@@ -32,15 +32,22 @@ app.post("/api/create-comment", (req, res) => {
 
 
 app.get("/api/comments/:id", (req, res) => {
-    db.Articles.findById({
-        _id: req.params.id
-        // i assume making the word plural grabs all of them
-    }).populate("comments").then(function (data) {
-        res.json(data)
-    })
+    if (!req.user) {
+        res.json(false);
+    } else {
+        db.Articles.findById({
+            _id: req.params.id
+            // i assume making the word plural grabs all of them
+        }).populate("comments").then(function (data) {
+            res.json(data)
+        })
+    }
+
 })
 
-
+app.get("/test", (req, res) => {
+    console.log(req.user);
+})
 
 
 
