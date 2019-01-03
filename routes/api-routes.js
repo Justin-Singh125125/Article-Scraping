@@ -13,7 +13,6 @@ app.get("/api/scrape", (req, res) => {
 
 })
 app.post("/api/create-comment", (req, res) => {
-    console.log(req.body.articleId);
     var newNote = {
         body: req.body.body
     }
@@ -46,18 +45,23 @@ app.get("/api/comments/:id", (req, res) => {
 
 })
 
-app.get("/test", (req, res) => {
-    console.log(req.user);
-})
+
 
 app.put("/api/save-article", (req, res) => {
-    console.log(req.body);
     db.User.findOneAndUpdate({
         _id: req.user._id
     }, { $push: { savedArticles: req.body.articleId } }).then(function (data) {
         res.json(data);
     })
 
+})
+
+app.delete("/api/delete-article", (req, res) => {
+    db.User.update({
+        _id: req.user._id
+    }, { $pull: { savedArticles: req.body.id } }).then(function (data) {
+        res.json(data);
+    })
 })
 
 
@@ -120,8 +124,6 @@ function scrapeArticle(req, res) {
                 }
             }
 
-
-            console.log(filteredArticles);
             if (filteredArticles.length === 0) {
                 res.json([]);
             } else {

@@ -91,6 +91,7 @@ function scrapeArticle() {
 
 
     $.get("/api/scrape", function (data) {
+        console.log(data);
 
         if (data.length === 0) {
             $("#modal-text").text("No new articles");

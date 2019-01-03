@@ -51,7 +51,7 @@ passport.use(
         }).then((currentUser) => {
             //if the user exists
             if (currentUser) {
-                console.log("user is: " + currentUser);
+
 
 
                 //everytime we are currently signed in and try and grab something from req.user,
@@ -63,7 +63,7 @@ passport.use(
                     googleId: profile.id,
                     username: profile.displayName
                 }).save().then((newUser) => {
-                    console.log('new user created: ', newUser);
+
 
                     //everytime we are currently signed in and try and grab something from req.user,
                     //this code occurs to decrypt the info so we can use it

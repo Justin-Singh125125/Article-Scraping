@@ -66,14 +66,27 @@
                         <button id="get-news" type="button" class="btn btn-success">Get Latest News</button>
                     </ul>
                     <span class="navbar-text">
-                        {{!-- ml allows me to put items on the right side of my nav bar --}}
                         <ul class="navbar-nav ml">
+                            {{!-- ml allows me to put items on the right side of my nav bar --}}
+                            {{#if articles.user}}
+                            <!-- Default dropleft button -->
+                            <div class="btn-group dropleft">
+                                <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown"
+                                    aria-haspopup="true" aria-expanded="false">
+                                    {{articles.user.username}}
+                                </button>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" href="/auth/logout">Logout</a>
+
+                                </div>
+                            </div>
+                            {{else}}
+
                             <li class="nav-item">
                                 <a class="nav-link" href="/auth/login">Login</a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="/auth/logout">Logout</a>
-                            </li>
+
+                            {{/if}}
                         </ul>
                     </span>
                 </div>
@@ -84,7 +97,7 @@
             </div>
         </div>
         <div class="article-section">
-            {{#each articles}}
+            {{#each articles.data}}
             <div class="card">
                 <div class="card-header">
                     <h1>{{this.title}}</h1>
