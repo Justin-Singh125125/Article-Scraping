@@ -6,16 +6,30 @@ var articleId = "";
 
 
 function sendComment() {
-    console.log("test" + articleId);
-    var newComment = {
-        articleId: articleId,
-        body: $("#user-comment").val().trim()
-    };
 
-    $.post("/api/create-comment", newComment), function (data) {
+    if ($("#user-comment").val() === "") {
+        $("#modal-text").text("Please enter a comment");
+        $(".modal-title").empty();
 
+        $("#alertScraped").modal("show");
+    } else {
+        var newComment = {
+            articleId: articleId,
+            body: $("#user-comment").val().trim()
+        };
+
+        $.ajax("/api/create-comment", {
+            type: "post",
+            data: newComment
+        }).then(function (data) {
+            console.log(data);
+            $("#modal-text").text("Comment Sent");
+            $(".modal-title").empty();
+            $("#alertScraped").modal("show");
+            $("#wrapper").toggleClass("toggled");
+
+        })
     }
-
 }
 
 //when save article button is clicked
@@ -30,7 +44,8 @@ $(".save-article").on("click", function () {
         type: "put",
         data: saveArticle
     }).then(function (data) {
-        console.log(data);
+
+
     })
 })
 
@@ -43,8 +58,6 @@ $(".menu-toggle").on("click", function (e) {
     $.ajax("/api/comments/" + articleId, {
         type: "GET"
     }).then(function (data) {
-
-        console.log(data);
         if (data === false) {
             $("#form-user").css("display", "none");
             $("#comment-section").empty();
@@ -53,12 +66,7 @@ $(".menu-toggle").on("click", function (e) {
             $("#wrapper").toggleClass("toggled");
 
         } else {
-
-            $("#comment-section").empty();
-            for (var i = 0; i < data.comments.length; i++) {
-                var comment = $("<p>").text(data.comments[i].body);
-                $("#comment-section").append(comment);
-            }
+            renderComments(data);
             $("#wrapper").toggleClass("toggled");
         }
 
@@ -68,7 +76,14 @@ $(".menu-toggle").on("click", function (e) {
 });
 
 
+function renderComments(data) {
+    $("#comment-section").empty();
+    for (var i = data.comments.length - 1; i >= 0; i--) {
+        var comment = $("<p>").text(data.comments[i].body);
+        $("#comment-section").append(comment);
+    }
 
+}
 
 
 function scrapeArticle() {
@@ -81,7 +96,6 @@ function scrapeArticle() {
             $("#modal-text").text("No new articles");
             $("#alertScraped").modal("show");
         } else {
-            console.log(data);
             $("#modal-text").text(data.length + " New Articles Scraped");
             $("#alertScraped").modal("show");
         }

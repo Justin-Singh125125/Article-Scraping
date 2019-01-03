@@ -25,6 +25,7 @@ app.post("/api/create-comment", (req, res) => {
         }, { $push: { comments: dbNote._id } }, { new: true });
 
     }).then(function (dbArticle) {
+
         res.json(dbArticle);
     })
 })
