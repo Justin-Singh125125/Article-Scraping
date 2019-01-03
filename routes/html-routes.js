@@ -9,6 +9,16 @@ app.get("/", (req, res) => {
 
 })
 
+app.get("/savedArticles", (req, res) => {
+    db.User.findById({
+        _id: req.user._id
+    }).populate("savedArticles").then(function (data) {
+
+        res.render("savedArticles", { savedArticles: data.savedArticles });
+    })
+
+})
+
 app.get("auth/login", (req, res) => {
     res.render("login")
 })

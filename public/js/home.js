@@ -16,15 +16,35 @@ function sendComment() {
 
     }
 
-    console.log(newComment);
 }
 
+//when save article button is clicked
+$(".save-article").on("click", function () {
+    var saveArticle = {
+        articleId: $(this).attr("data-articleId")
+    };
+
+
+
+    $.ajax("/api/save-article", {
+        type: "put",
+        data: saveArticle
+    }).then(function (data) {
+        console.log(data);
+    })
+})
+
+
+
+//when the comment button is clicked
 $(".menu-toggle").on("click", function (e) {
     articleId = $(this).attr("data-articleId");
 
     $.ajax("/api/comments/" + articleId, {
         type: "GET"
     }).then(function (data) {
+
+        console.log(data);
         if (data === false) {
             $("#form-user").css("display", "none");
             $("#comment-section").empty();
@@ -33,12 +53,11 @@ $(".menu-toggle").on("click", function (e) {
             $("#wrapper").toggleClass("toggled");
 
         } else {
-            console.log(data);
+
             $("#comment-section").empty();
             for (var i = 0; i < data.comments.length; i++) {
                 var comment = $("<p>").text(data.comments[i].body);
                 $("#comment-section").append(comment);
-                console.log(comment);
             }
             $("#wrapper").toggleClass("toggled");
         }
@@ -47,6 +66,9 @@ $(".menu-toggle").on("click", function (e) {
 
 
 });
+
+
+
 
 
 function scrapeArticle() {

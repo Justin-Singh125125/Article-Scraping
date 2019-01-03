@@ -49,6 +49,16 @@ app.get("/test", (req, res) => {
     console.log(req.user);
 })
 
+app.put("/api/save-article", (req, res) => {
+    console.log(req.body);
+    db.User.findOneAndUpdate({
+        _id: req.user._id
+    }, { $push: { savedArticles: req.body.articleId } }).then(function (data) {
+        res.json(data);
+    })
+
+})
+
 
 
 
