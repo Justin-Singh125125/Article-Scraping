@@ -35,9 +35,9 @@ passport.use(
         //google takes three variable to work
         //first is the clientID which you get from creating a project
         //with the google dev console
-        clientID: keys.google.clientID,
+        clientID: keys.google.clientID || process.env.CLIENT_ID,
         //you get your client secret also
-        clientSecret: keys.google.clientSecret,
+        clientSecret: keys.google.clientSecret || process.env.CLIENT_SECRET,
         //this callback url is where google will redirect the user once they are verified and signed in
         //we redirect the user in the auth-routes javascript file
         callbackURL: '/auth/google/redirect'

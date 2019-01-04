@@ -30,7 +30,7 @@ app.use(cookieSession({
     //how long we want the cookie to last before they log out, equivelent to 1 day
     maxAge: 24 * 60 * 60 * 1000,
     //encrypts the cookie key with the hidden string that you made
-    keys: [keys.session.cookieKey]
+    keys: [keys.session.cookieKey] || proccess.env.COOKIE_KEY
 }))
 
 //initialize passport, allows us to use our cookies

@@ -6,18 +6,18 @@ var Schema = mongoose.Schema;
 
 var ArticleSchema = new Schema({
     title: {
-        type: String,
-        unique: true
+        type: String
+
 
     },
     summary: {
-        type: String,
-        unique: true
+        type: String
+
 
     },
     link: {
-        type: String,
-        unique: true
+        type: String
+
     },
     Date: {
         type: Date,

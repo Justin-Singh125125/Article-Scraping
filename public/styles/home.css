@@ -36,6 +36,8 @@ html, body{
 .card-body{
     border: 2px solid #ffb412;
     border-style: none;
+    
+    
 }
 .card{
     text-align: center;
