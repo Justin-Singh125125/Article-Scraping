@@ -14,12 +14,17 @@ app.get("/", (req, res) => {
 })
 
 app.get("/savedArticles", (req, res) => {
-    db.User.findById({
-        _id: req.user._id
-    }).populate("savedArticles").then(function (data) {
+    if (!req.user) {
+        res.render("savedArticles", { user: true });
+    } else {
+        db.User.findById({
+            _id: req.user._id
+        }).populate("savedArticles").then(function (data) {
 
-        res.render("savedArticles", { data: data });
-    })
+            res.render("savedArticles", { data: data });
+        })
+    }
+
 
 })
 

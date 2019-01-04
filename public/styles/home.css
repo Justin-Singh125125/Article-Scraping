@@ -77,3 +77,38 @@ html, body{
 .dropdown-item:hover{
     background :black;
 }
+
+
+#form-user{
+    margin: 10px;
+}
+#send-comment{
+    float:right;
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+#comment-card{
+    clear: both;
+    content: "";
+}
+#comment-section{
+    height: 300px;
+    overflow: auto;
+}
+.savedArticles{
+   padding-bottom: 0px;
+}
+
+.loading{
+    background-image: url("http://www.nextrx.net/news/orange/files/stacks-image-2056a0f.gif");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center; 
+    height: 600px;
+    width: 100%;
+
+}
+
+.modal-title{
+    text-align: center;
+}

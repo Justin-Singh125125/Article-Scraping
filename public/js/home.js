@@ -44,7 +44,9 @@ $(".save-article").on("click", function () {
         type: "put",
         data: saveArticle
     }).then(function (data) {
-
+        $("#modal-text").text("Article Saved!");
+        $(".modal-title").empty();
+        $("#alertScraped").modal("show");
 
     })
 })
@@ -88,11 +90,18 @@ function renderComments(data) {
 
 function scrapeArticle() {
 
+    $.ajax("/api/scrape", {
+        type: "get",
+        beforeSend: function () {
+            $("#modal-text").empty();
+            $(".modal-title").text("Loading...")
+            $(".modal-body").addClass("loading");
+            $("#alertScraped").modal("show");
+        }
 
-
-    $.get("/api/scrape", function (data) {
-        console.log(data);
-
+    }).then(function (data) {
+        $(".modal-title").text("Loaded")
+        $(".modal-body").removeClass("loading");
         if (data.length === 0) {
             $("#modal-text").text("No new articles");
             $("#alertScraped").modal("show");
