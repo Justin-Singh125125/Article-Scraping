@@ -48,11 +48,17 @@ app.get("/api/comments/:id", (req, res) => {
 
 
 app.put("/api/save-article", (req, res) => {
-    db.User.findOneAndUpdate({
-        _id: req.user._id
-    }, { $push: { savedArticles: req.body.articleId } }).then(function (data) {
-        res.json(data);
-    })
+
+    if (!req.user) {
+        res.json(false);
+    } else {
+        db.User.findOneAndUpdate({
+            _id: req.user._id
+        }, { $push: { savedArticles: req.body.articleId } }).then(function (data) {
+            res.json(data);
+        })
+    }
+
 
 })
 

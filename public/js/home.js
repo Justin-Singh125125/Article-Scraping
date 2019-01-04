@@ -44,10 +44,17 @@ $(".save-article").on("click", function () {
         type: "put",
         data: saveArticle
     }).then(function (data) {
-        $("#modal-text").text("Article Saved!");
-        $(".modal-title").empty();
-        $("#alertScraped").modal("show");
 
+        if (data === false) {
+            $("#modal-text").text("Please login to use this feature");
+            $("#alertScraped").modal("show");
+        } else {
+
+
+            $("#modal-text").text("Article Saved!");
+            $(".modal-title").empty();
+            $("#alertScraped").modal("show");
+        }
     })
 })
 
