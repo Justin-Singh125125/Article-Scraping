@@ -93,15 +93,13 @@ function scrapeArticle() {
     $.ajax("/api/scrape", {
         type: "get",
         beforeSend: function () {
-            $("#modal-text").empty();
-            $(".modal-title").text("Loading...")
-            $(".modal-body").addClass("loading");
-            $("#alertScraped").modal("show");
+            $("#page-content-wrapper").css("visibility", "hidden");
+            $(".box").css("visibility", "visible")
         }
 
     }).then(function (data) {
-        $(".modal-title").text("Loaded")
-        $(".modal-body").removeClass("loading");
+        $("#page-content-wrapper").css("visibility", "visible");
+        $(".box").css("visibility", "hidden")
         if (data.length === 0) {
             $("#modal-text").text("No new articles");
             $("#alertScraped").modal("show");
