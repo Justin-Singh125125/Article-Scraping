@@ -109,6 +109,7 @@ html, body{
     background-position: center; 
     height: 600px;
     width: 100%;
+   
 
 }
 
@@ -126,6 +127,7 @@ html, body{
     justify-content: center;
     align-items: center;
     visibility: hidden;
+    z-index: 100;
  }
 
  .visibility{
