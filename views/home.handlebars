@@ -19,12 +19,16 @@
     <link rel="stylesheet" href="./styles/vendor/bootstrap/css/bootstrap.min.css">
     <link href="./styles/css/simple-sidebar.css" rel="stylesheet">
     <link rel="stylesheet" href="./styles/animate.css">
+    <link rel="stylesheet" href="./styles/parallax.css">
     <link rel="stylesheet" href="./styles/home.css">
 
 
 </head>
 
 <body>
+    <a href="#wrapper">
+        <button id="myBtn" title="Go to top">Top</button>
+    </a>
     <div class="box">
         <img src="https://i.imgur.com/gVX3yPJ.gif" alt="">
     </div>
@@ -102,6 +106,8 @@
                 <h2>Welcome to Article Scraper</h2>
                 <h5>(grab the latest/hottest news about technology)</h5>
             </div>
+            <div class="parallax-window" data-parallax="scroll" data-z-index="1" data-image-src="https://images.wallpaperscraft.com/image/cup_coffee_newspaper_breakfast_113335_3840x2400.jpg"></div>
+
         </div>
         <div class="article-section">
             {{#each articles.data}}
@@ -159,12 +165,11 @@
     </div>
     </div>
 
-    <a href="#page-content-wrapper">
-        <button id="myBtn" title="Go to top">Top</button>
-    </a>
 
 
 
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 
 
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
@@ -176,7 +181,7 @@
         crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
     <script src="./js/scrollAnimations.js"></script>
-
+    <script src="./js/parallax.js"></script>
 
     <script src="./js/home.js"></script>
 
