@@ -13,7 +13,8 @@
     {{!-- since we served up the public folder in express, we can reference like we are already inside the public
     directory --}}
 
-
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/"
+        crossorigin="anonymous">
 
     <link rel="stylesheet" href="./styles/vendor/bootstrap/css/bootstrap.min.css">
     <link href="./styles/css/simple-sidebar.css" rel="stylesheet">
@@ -21,10 +22,61 @@
 
 
 </head>
+<style>
+    body{
+        background-color: #343a40;
+    }
+</style>
 
 <body>
     {{#if user}}
-    <p>not logged in</p>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark ">
+        <a class="navbar-brand" href="/">Article Scraper</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText"
+            aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarText">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/savedArticles">Saved Articles</a>
+                </li>
+
+            </ul>
+            <span class="navbar-text">
+                <ul class="navbar-nav ml">
+                    {{!-- ml allows me to put items on the right side of my nav bar --}}
+                    {{#if data.username}}
+                    <!-- Default dropleft button -->
+                    <div class="btn-group dropleft">
+                        <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false">
+                            {{data.username}}
+                        </button>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="/auth/logout">Logout</a>
+
+                        </div>
+                    </div>
+                    {{else}}
+
+                    <li class="nav-item">
+                        <a href="/auth/login"><button type="button" class="btn btn-warning"><strong>Login</strong></button></a>
+                    </li>
+
+                    {{/if}}
+                </ul>
+            </span>
+        </div>
+    </nav>
+    <div class="container">
+        <div class="jumbotron">
+            <h2>Please Login to use this page</h2>
+        </div>
+    </div>
     {{else}}
     <div id="wrapper">
         {{!-- side bar --}}
@@ -97,7 +149,7 @@
         <div class="article-section">
             {{#unless data.savedArticles}}
             <div class="jumbotron">
-                <h2>Save an Article to View Later</h2>
+                <h2><i class="fas fa-newspaper"></i> Save an Article to View Later</h2>
             </div>
             {{else}}
             {{#each data.savedArticles}}

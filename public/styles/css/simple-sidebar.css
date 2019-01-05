@@ -37,12 +37,14 @@ body {
 
 #wrapper.toggled #sidebar-wrapper {
   width: 250px;
+  background-color: #343a40;
 }
 
 #page-content-wrapper {
   width: 100%;
   position: absolute;
   padding: 15px;
+  background-color:#343a40;
 }
 
 #wrapper.toggled #page-content-wrapper {

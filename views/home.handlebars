@@ -14,9 +14,11 @@
     directory --}}
 
 
-
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/"
+        crossorigin="anonymous">
     <link rel="stylesheet" href="./styles/vendor/bootstrap/css/bootstrap.min.css">
     <link href="./styles/css/simple-sidebar.css" rel="stylesheet">
+    <link rel="stylesheet" href="./styles/animate.css">
     <link rel="stylesheet" href="./styles/home.css">
 
 
@@ -68,7 +70,8 @@
                         <li class="nav-item">
                             <a class="nav-link" href="/savedArticles">Saved Articles</a>
                         </li>
-                        <button id="get-news" type="button" class="btn btn-success">Get Latest News</button>
+                        <button id="get-news" type="button" class="btn btn-success"><i class="fas fa-download"></i> Get
+                            Latest News</button>
                     </ul>
                     <span class="navbar-text">
                         <ul class="navbar-nav ml">
@@ -82,13 +85,12 @@
                                 </button>
                                 <div class="dropdown-menu">
                                     <a class="dropdown-item" href="/auth/logout">Logout</a>
-
                                 </div>
                             </div>
                             {{else}}
 
                             <li class="nav-item">
-                                <a class="nav-link" href="/auth/login">Login</a>
+                                <a href="/auth/login"><button type="button" class="btn btn-warning"><strong>Login</strong></button></a>
                             </li>
 
                             {{/if}}
@@ -96,25 +98,28 @@
                     </span>
                 </div>
             </nav>
-            <div class="jumbotron">
+            <div class="jumbotron no-radius">
                 <h2>Welcome to Article Scraper</h2>
                 <h5>(grab the latest/hottest news about technology)</h5>
             </div>
         </div>
         <div class="article-section">
             {{#each articles.data}}
-            <div class="card">
-                <div class="card-header">
+            <div class="card revealOnScroll visibility" data-animation="fadeInUp" data-timeout="800">
+                <div class="card-header ">
                     <h1>{{this.title}}</h1>
                 </div>
                 <div class="card-body">
-                    <h2>{{this.summary}}</h2>
+                    <h2><a href="#home-background"></a> {{this.summary}}</h2>
                     <a href="{{this.link}}" target="_blank">
-                        <button type="button" class="btn btn-info client">Learn More</button>
+                        <button type="button" class="btn btn-info client enlarge"><i class="fab fa-leanpub"></i> Learn
+                            More</button>
                     </a>
-                    <button type="button" class="btn btn-secondary client menu-toggle" data-ArticleId="{{this._id}}">Comment</button>
+                    <button type="button" class="btn btn-secondary client menu-toggle enlarge" data-ArticleId="{{this._id}}"><i
+                            class="far fa-comments"></i> Comment</button>
 
-                    <button type="button" class="btn btn-secondary client save-article" data-ArticleId="{{this._id}}">Save
+                    <button type="button" class="btn btn-success client save-article enlarge" data-ArticleId="{{this._id}}"><i
+                            class="fas fa-bookmark"></i> Save
                         Article</button>
 
                 </div>
@@ -154,6 +159,13 @@
     </div>
     </div>
 
+    <a href="#page-content-wrapper">
+        <button id="myBtn" title="Go to top">Top</button>
+    </a>
+
+
+
+
 
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
         crossorigin="anonymous"></script>
@@ -162,6 +174,10 @@
         crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
         crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
+    <script src="./js/scrollAnimations.js"></script>
+
+
     <script src="./js/home.js"></script>
 
 
