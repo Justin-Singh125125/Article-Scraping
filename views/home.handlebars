@@ -110,6 +110,11 @@
 
         </div>
         <div class="article-section">
+            {{#unless articles.data}}
+            <div class="jumbotron">
+                <h2>Click Get Latest News</h2>
+            </div>
+            {{else}}
             {{#each articles.data}}
             <div class="card revealOnScroll visibility" data-animation="fadeInUp" data-timeout="800">
                 <div class="card-header ">
@@ -131,6 +136,7 @@
                 </div>
             </div>
             {{/each}}
+            {{/unless}}
         </div>
 
     </div>
