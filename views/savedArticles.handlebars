@@ -9,19 +9,16 @@
 
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
 
-    {{!-- home css --}}
-    {{!-- since we served up the public folder in express, we can reference like we are already inside the public
-    directory --}}
-
+    {{!-- same for home handlebars --}}
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/"
         crossorigin="anonymous">
-
     <link rel="stylesheet" href="./styles/vendor/bootstrap/css/bootstrap.min.css">
     <link href="./styles/css/simple-sidebar.css" rel="stylesheet">
     <link rel="stylesheet" href="./styles/home.css">
 
 
 </head>
+
 <style>
     body{
         background-color: #343a40;
@@ -29,6 +26,7 @@
 </style>
 
 <body>
+    {{!-- if user is logged in, display this --}}
     {{#if user}}
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark ">
         <a class="navbar-brand" href="/">Article Scraper</a>
@@ -44,12 +42,14 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/savedArticles">Saved Articles</a>
                 </li>
-
             </ul>
             <span class="navbar-text">
                 <ul class="navbar-nav ml">
                     {{!-- ml allows me to put items on the right side of my nav bar --}}
+
+                    {{!-- if a username is detected, show this --}}
                     {{#if data.username}}
+
                     <!-- Default dropleft button -->
                     <div class="btn-group dropleft">
                         <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown"
@@ -61,12 +61,12 @@
 
                         </div>
                     </div>
-                    {{else}}
 
+                    {{!-- if no username, display this --}}
+                    {{else}}
                     <li class="nav-item">
                         <a href="/auth/login"><button type="button" class="btn btn-warning"><strong>Login</strong></button></a>
                     </li>
-
                     {{/if}}
                 </ul>
             </span>
@@ -79,31 +79,27 @@
     </div>
     {{else}}
     <div id="wrapper">
+
         {{!-- side bar --}}
-        <!-- Sidebar -->
         <div id="sidebar-wrapper">
             <form>
                 <div id="form-user" class="form-group">
                     <input id="user-comment" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
                         placeholder="Leave Comment">
                     <button id="send-comment" type="button" class="btn btn-primary">Comment</button>
-
                 </div>
                 <div id="comment-card" class="card">
                     <div class="card-header">
                         <h2>Comment Section</h2>
                     </div>
                     <div id="comment-section" class="card-body">
-
                     </div>
                 </div>
         </div>
-
     </div>
     <!-- /#sidebar-wrapper -->
 
     <div id="page-content-wrapper">
-
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark ">
             <a class="navbar-brand" href="/">Article Scraper</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText"
@@ -118,7 +114,6 @@
                     <li class="nav-item">
                         <a class="nav-link" href="/savedArticles">Saved Articles</a>
                     </li>
-
                 </ul>
                 <span class="navbar-text">
                     <ul class="navbar-nav ml">
@@ -136,11 +131,9 @@
                             </div>
                         </div>
                         {{else}}
-
                         <li class="nav-item">
                             <a class="nav-link" href="/auth/login">Login</a>
                         </li>
-
                         {{/if}}
                     </ul>
                 </span>
@@ -169,20 +162,9 @@
                 </div>
             </div>
             {{/each}}
-
-
             {{/unless}}
         </div>
-
     </div>
-
-
-
-
-
-    {{!-- for bootstrap javascript --}}
-
-
     <!-- Modal -->
     <div id="alertScraped" class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">

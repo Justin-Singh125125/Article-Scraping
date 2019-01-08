@@ -4,10 +4,17 @@ var htmlRoutes = require("./routes/html-routes");
 var apiRoutes = require("./routes/api-routes");
 var mongoose = require("mongoose");
 
+//allows us to use authentication routes 
 const authRoutes = require("./routes/auth-routes");
 const passportSetup = require("./config/passport-setup");
+
+//allows us to store a private piece of users data for a period of time
 const cookieSession = require("cookie-session");
+
+//allows us to use passport for login features 
 const passport = require("passport");
+
+//like a proccess.env file 
 const keys = require("./config/keys");
 
 

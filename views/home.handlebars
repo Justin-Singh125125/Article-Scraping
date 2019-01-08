@@ -9,20 +9,22 @@
 
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
 
-    {{!-- home css --}}
-    {{!-- since we served up the public folder in express, we can reference like we are already inside the public
-    directory --}}
-
-
+    {{!-- for font awesome fonts --}}
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/"
         crossorigin="anonymous">
+
+    {{!--for the side nav bar --}}
     <link rel="stylesheet" href="./styles/vendor/bootstrap/css/bootstrap.min.css">
     <link href="./styles/css/simple-sidebar.css" rel="stylesheet">
+
+    {{!-- for article loading fade in effects --}}
     <link rel="stylesheet" href="./styles/animate.css">
+
+    {{!-- for parallax effect on image background --}}
     <link rel="stylesheet" href="./styles/parallax.css">
+
+    {{!-- holds our css --}}
     <link rel="stylesheet" href="./styles/home.css">
-
-
 </head>
 
 <body>
@@ -33,31 +35,25 @@
         <img src="https://i.imgur.com/gVX3yPJ.gif" alt="">
     </div>
     <div id="wrapper">
-        {{!-- side bar --}}
-        <!-- Sidebar -->
-        <div id="sidebar-wrapper">
 
+        {{!-- side bar --}}
+        <div id="sidebar-wrapper">
             <form>
                 <div id="form-user" class="form-group">
                     <input id="user-comment" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
                         placeholder="Leave Comment">
                     <button id="send-comment" type="button" class="btn btn-primary">Comment</button>
-
                 </div>
                 <div id="comment-card" class="card">
                     <div id="test-card" class="card-header">
                         <h2>Comment Section</h2>
                     </div>
                     <div id="comment-section" class="card-body">
-
                     </div>
                 </div>
-
         </div>
-
     </div>
-    <!-- /#sidebar-wrapper -->
-
+    {{!-- /#sidebar-wrapper --}}
     <div id="page-content-wrapper">
         <div class="home-background">
             <nav class="navbar navbar-expand-lg navbar-dark bg-dark ">
@@ -92,11 +88,9 @@
                                 </div>
                             </div>
                             {{else}}
-
                             <li class="nav-item">
                                 <a href="/auth/login"><button type="button" class="btn btn-warning"><strong>Login</strong></button></a>
                             </li>
-
                             {{/if}}
                         </ul>
                     </span>
@@ -106,15 +100,22 @@
                 <h2>Welcome to Article Scraper</h2>
                 <h5>(grab the latest/hottest news about technology)</h5>
             </div>
-            <div class="parallax-window" data-parallax="scroll" data-z-index="1" data-image-src="./images/parrallax-image.jpg"></div>
 
+            {{!-- where I include the parallax background image --}}
+            <div class="parallax-window" data-parallax="scroll" data-z-index="1" data-image-src="./images/parrallax-image.jpg"></div>
         </div>
         <div class="article-section">
+
+            {{!-- if there are no articles, display this --}}
             {{#unless articles.data}}
             <div class="jumbotron">
                 <h2>Click Get Latest News</h2>
             </div>
+
+            {{!-- if there are articles, display this --}}
             {{else}}
+
+            {{!-- for loop that goes through each article --}}
             {{#each articles.data}}
             <div class="card revealOnScroll visibility" data-animation="fadeInUp" data-timeout="800">
                 <div class="card-header ">
@@ -132,24 +133,14 @@
                     <button type="button" class="btn btn-success client save-article enlarge" data-ArticleId="{{this._id}}"><i
                             class="fas fa-bookmark"></i> Save
                         Article</button>
-
                 </div>
             </div>
             {{/each}}
             {{/unless}}
         </div>
-
     </div>
 
-
-
-
-
-
-    {{!-- for bootstrap javascript --}}
-
-
-    <!-- Modal -->
+    {{!-- Modal --}}
     <div id="alertScraped" class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -171,13 +162,8 @@
     </div>
     </div>
 
-
-
-
-
+    {{!-- javascript links --}}
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-
-
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
         crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -188,11 +174,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
     <script src="./js/scrollAnimations.js"></script>
     <script src="./js/parallax.js"></script>
-
     <script src="./js/home.js"></script>
-
-
-
 </body>
 
 </html>

@@ -1,30 +1,33 @@
+// allow routing on this page
 var app = require('express').Router();
+
+// allows me to use mongo database promises and easier syntax
 var mongoose = require("mongoose");
 
+//allows me to web scrape
 var cheerio = require("cheerio");
 var axios = require("axios");
 
+//requires all the database models
 var db = require("../modals");
 
 app.get("/api/scrape", (req, res) => {
-    var scrapedArticles = [];
-    var dbArticles = [];
     scrapeArticle(req, res)
-
 })
 app.post("/api/create-comment", (req, res) => {
+
+    // creates a note object
     var newNote = {
         body: req.body.body
-    }
+    };
 
+    //creates a comment in the database and the pushes the id of that comment into the articles collection
     db.Comments.create(newNote).then(function (dbNote) {
-
         return db.Articles.findOneAndUpdate({
             _id: req.body.articleId
         }, { $push: { comments: dbNote._id } }, { new: true });
 
     }).then(function (dbArticle) {
-
         res.json(dbArticle);
     })
 })
@@ -32,26 +35,28 @@ app.post("/api/create-comment", (req, res) => {
 
 
 app.get("/api/comments/:id", (req, res) => {
+
+    // if user is not signed in
     if (!req.user) {
         res.json(false);
     } else {
         db.Articles.findById({
             _id: req.params.id
-            // i assume making the word plural grabs all of them
+
+            //populate grabs all comments where id is found in articles
+            // it is like a foreign key
         }).populate("comments").then(function (data) {
             res.json(data)
         })
     }
-
 })
 
-
-
 app.put("/api/save-article", (req, res) => {
-
     if (!req.user) {
         res.json(false);
     } else {
+
+        // pushes id of the article clicked to save so we can associate that article for the one user
         db.User.findOneAndUpdate({
             _id: req.user._id
         }, { $push: { savedArticles: req.body.articleId } }).then(function (data) {
@@ -70,11 +75,7 @@ app.delete("/api/delete-article", (req, res) => {
     })
 })
 
-
-
-
-
-
+//scrapes the article
 function scrapeArticle(req, res) {
     // Making a request via axios for `nhl.com`'s homepage
     axios.get("https://techcrunch.com/").then(function (response) {
@@ -87,13 +88,15 @@ function scrapeArticle(req, res) {
 
         //react inside the first post-block
         $(".post-block").each(function (i, element) {
+
             //grab the title
             var title = $(element).find(".post-block__title").text().trim();
+
             //grab the summary 
             var summary = $(element).find(".post-block__content").text().trim();
+
             //grab the link
             var link = $(element).find("a").attr("href");
-
 
             // Make an object with data we scraped for this h4 and push it to the results array
             results.push({
@@ -105,6 +108,7 @@ function scrapeArticle(req, res) {
 
         //gets all from the database
         db.Articles.find({}).then(function (data) {
+
             //saves all data pulled from the database
             dbArticles = data;
 
@@ -130,31 +134,20 @@ function scrapeArticle(req, res) {
                 }
             }
 
+            //if there are no new articles to add
             if (filteredArticles.length === 0) {
                 res.json([]);
             } else {
+
+                // if there are new articles, create them
                 db.Articles.create(filteredArticles).then(function () {
                     res.json(filteredArticles);
                 }).catch(function (err) {
                     res.json(err);
                 })
-
             }
-
         })
-
-
-
-
     });
-
-    function comparer(otherArray) {
-        return function (current) {
-            return otherArray.filter(function (other) {
-                return other.title == current.title && other.summary == current.summary && other.link == current.link;
-            }).length == 0;
-        }
-    }
 }
 
 module.exports = app;
