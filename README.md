@@ -1,4 +1,4 @@
-<h1>Article Scraper</h1>
+<h1 align="center">Article Scraper</h1>
 
 <h2>About</h2>
 <p>Full stack application that scrapes articles from a technology website and stores them into a Mongo database, which allows clients to save, comment, and delete articles from their profile</p>
