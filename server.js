@@ -59,6 +59,6 @@ mongoose.connect(MONGODB_URI, () => {
 
 app.listen(PORT, () => {
     console.log(
-        "==> 🌎  Listening on port %s. Visit http://localhost:%s/ in your browser.",
+        `==> 🌎  Listening on port %s. Visit http://localhost:${PORT}/ in your browser.`,
         PORT)
 })

@@ -27,9 +27,13 @@ app.get("/savedArticles", (req, res) => {
 
 
 })
+app.get("/wakemydyno.txt", (req, res) => {
+    res.render("test");
+})
 
 app.get("auth/login", (req, res) => {
     res.render("login")
 })
+
 
 module.exports = app;
